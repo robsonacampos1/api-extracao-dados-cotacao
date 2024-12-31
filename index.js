@@ -32,7 +32,7 @@ async function fetchAPI3(operadoraId, modalidade, produtoId, cidade, token) {
     try {
         const url = `${BASE_URL}/api/operadoras/${operadoraId}/${modalidade}/${produtoId}/valores?cidade=${encodeURIComponent(cidade)}&modalidade=${modalidade}&ramo=Saúde`;
         const headers = { Authorization: `Token ${token}` };
-        const response = await axios.get(url, { headers });
+        const response = await axios.get(url, { headers, httpsAgent: new HttpsProxyAgent('http://30530355dfd1c4ddf083:057c950a1fb4f640@gw.dataimpulse.com:823') });
         return response.data;
     } catch (error) {
         console.error("Erro na API 3:", error.response?.data || error.message);
