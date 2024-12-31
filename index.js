@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const { HttpsProxyAgent } = require('https-proxy-agent');
 
 const app = express();
 app.use(express.json());
@@ -16,7 +17,9 @@ function extractUUID(url) {
 async function fetchAPI1(uuid) {
     try {
         const url = `${BASE_URL}/api/cotacao/${uuid}?authorize=false&cache=false`;
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+            httpsAgent: new HttpsProxyAgent('http://30530355dfd1c4ddf083:057c950a1fb4f640@gw.dataimpulse.com:823')
+        });
         return response.data;
     } catch (error) {
         console.error("Erro na API 1:", error.response?.data || error.message);
